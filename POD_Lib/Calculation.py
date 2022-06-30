@@ -19,7 +19,7 @@ def sol_matrix(names='CD', path=ph.get_raw_data()):
     return sol_mat
 
 def perform_SVD(matrix= sol_matrix()):
-    U,s, V = linalg.svd(matrix, full_matrices= True)
+    U,s, V = linalg.svd(matrix, full_matrices= False)
     return U,s,V
 
 def sigma_operation(array:list):
@@ -42,13 +42,17 @@ def calc_K(sigma, tolerance= 0.005):
         value *= value
         num += value
         val = num/denum
-        print(val)
         if val>= E:
             break
     return k
 
-def calc_delta_hat(matrix, k, sol_mat= sol_matrix()):
-    pass
+
+def calc_U_hat(matrix, k):
+    return matrix[:k,:]
+
+
+def calc_delta_hat(matrix, sol_mat= sol_matrix()):
+    return np.matmul(matrix, sol_mat) 
 
         
 
