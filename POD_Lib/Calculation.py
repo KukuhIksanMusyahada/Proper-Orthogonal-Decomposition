@@ -22,8 +22,39 @@ def perform_SVD(matrix= sol_matrix()):
     U,s, V = linalg.svd(matrix, full_matrices= True)
     return U,s,V
 
+def sigma_operation(array:list):
+    value = 0
+    for val in array:
+        val *= val
+        value +=val
+    return value
 
-def Calc_K():
-    pass 
+
+def calc_K(sigma, tolerance= 0.005):
+    E = 1-(tolerance**2)
+    k = 0
+    num = 0
+    denum = sigma_operation(sigma)
+    size_sigma= len(sigma)
+    
+    for value in sigma:
+        k+=1
+        value *= value
+        num += value
+        val = num/denum
+        print(val)
+        if val>= E:
+            break
+    return k
+
+def calc_delta_hat(matrix, k, sol_mat= sol_matrix()):
+    pass
+
+        
+
+
+    
+
+    
 
 
