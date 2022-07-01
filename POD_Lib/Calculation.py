@@ -6,6 +6,7 @@ import pandas as pd
 from scipy import linalg
 
 from POD_Lib import path_handling as ph
+from POD_Lib.utils import get_mach_vf_array
 
 def sol_matrix(names='CD', path=ph.get_raw_data()):
     sol_mat = list()
@@ -19,7 +20,7 @@ def sol_matrix(names='CD', path=ph.get_raw_data()):
     return sol_mat
 
 def perform_SVD(matrix= sol_matrix()):
-    U,s, V = linalg.svd(matrix, full_matrices= False)
+    U,s, V = linalg.svd(matrix, full_matrices= True)
     return U,s,V
 
 def sigma_operation(array:list):
