@@ -15,7 +15,7 @@ def sol_matrix(names='CD', path=ph.get_raw_data()):
             file_path = os.path.join(dir_path, file)
             df = pd.read_csv(os.path.join(file_path), usecols=[names], nrows= 130).to_numpy()
             sol_mat.append(df)
-    sol_mat = np.concatenate(sol_mat, axis=1).T
+    sol_mat = np.concatenate(sol_mat, axis=1)
     return sol_mat
 
 def perform_SVD(matrix= sol_matrix()):
@@ -52,7 +52,7 @@ def calc_U_hat(matrix, k):
 
 
 def calc_delta_hat(matrix, sol_mat= sol_matrix()):
-    return np.matmul(matrix, sol_mat) 
+    return np.matmul(matrix.T, sol_mat) 
 
         
 
