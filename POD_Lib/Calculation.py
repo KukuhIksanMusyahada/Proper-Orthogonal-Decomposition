@@ -49,7 +49,7 @@ def calc_K(sigma, tolerance= 0.005):
 
 
 def calc_U_hat(matrix, k):
-    return matrix[:k,:]
+    return matrix[:,:k]
 
 
 def calc_delta_hat(matrix, sol_mat= sol_matrix()):
