@@ -18,8 +18,9 @@ def get_mach_vf_array(path=ph.get_raw_data()):
     for dir in os.listdir(path):
         dir_path = os.path.join(path, dir)
         for file in os.listdir(dir_path):
-            result = extract_mach_and_vf(file)
-            mach.append(result[0])
-            vf.append(result[1])
+            if file.endswith('.csv'):
+                result = extract_mach_and_vf(file)
+                mach.append(result[0])
+                vf.append(result[1])
     list = [mach, vf]
     return np.array(list).T
