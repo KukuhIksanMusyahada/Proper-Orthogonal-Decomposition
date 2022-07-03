@@ -87,3 +87,7 @@ def LoadModel(path_to_model):
     print ("model history loaded")
 
     return model, history
+
+
+def predict_U_star():
+    pass
