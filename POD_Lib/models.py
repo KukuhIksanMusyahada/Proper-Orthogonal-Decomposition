@@ -43,8 +43,8 @@ def eval_model(model, machvf, Udelta):
     eval = model.evaluate(model, X,y)
     return eval
 
-def training(machVF,Udelta):
-    model = layers(num_layer=0, num_neurons=200, step_neurons=100)
+def training(machVF,Udelta, k):
+    model = layers(num_layer=0, num_neurons=200, step_neurons=100, num_features= k)
     model = loss_optim(model)
     X = np.array(machVF)
     y = np.array(Udelta)
@@ -56,7 +56,9 @@ def training(machVF,Udelta):
 
 def SaveModel(model, history, optional_path: str=None):
     """Save both model and history"""
-    folder_name = "ANN " + str (datetime.datetime.now())[:10]
+    now = datetime.datetime.now()
+    time_now = now.strftime('%Y%m%d%H%M%S')
+    folder_name = "ANN " + time_now
     if optional_path != None:
         model_directory = os.path.join (optional_path, folder_name)
     else:
@@ -76,7 +78,6 @@ def SaveModel(model, history, optional_path: str=None):
 def LoadModel(path_to_model):
     """Load Model and optionally it's history as well"""
     history_file = os.path.join(path_to_model, 'history.pkl')
-    modelsmeta_file = os.path.join(path_to_model, 'modelsmeta.pkl')
     model = tf.keras.models.load_model(path_to_model)
     # model = tf.saved_model.load(path_to_model)
     print ("\nmodel loaded")
@@ -84,8 +85,5 @@ def LoadModel(path_to_model):
     with open(history_file, 'rb') as f:
         history = pickle.load(f)
     print ("model history loaded")
-    with open(modelsmeta_file, 'rb') as nf:
-        modelsmeta = pickle.load(nf)
-    print ("model metadata loaded")
 
-    return model, history, modelsmeta
+    return model, history
