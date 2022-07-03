@@ -89,7 +89,7 @@ def LoadModel(path_to_model):
     return model, history
 
 
-def predict_U_star(model, mach= None, vf=None):
+def predict_delta_star(model, mach= None, vf=None):
     input = [[mach, vf]]
     u_star = model.predict(input)
 

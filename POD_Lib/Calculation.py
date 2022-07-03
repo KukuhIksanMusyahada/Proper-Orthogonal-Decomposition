@@ -57,8 +57,8 @@ def calc_delta_hat(matrix, sol_mat= sol_matrix()):
     return np.matmul(matrix.T, sol_mat)
 
 
-def prediction():
-    pass
+def prediction(delta_star, u_hat):
+    return np.matmul(u_hat, delta_star)
 
 
     
