@@ -22,4 +22,4 @@ def get_mach_vf_array(path=ph.get_raw_data()):
             mach.append(result[0])
             vf.append(result[1])
     list = [mach, vf]
-    return np.array(list)
+    return np.array(list).T

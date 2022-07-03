@@ -31,7 +31,7 @@ def loss_optim(model, optimizer='adam', loss='mse'):
     return model
 
 def fit_model(model,machVF, Udelta, max_epochs = 500):
-    X = np.array(machVF.T)
+    X = np.array(machVF)
     y = np.array(Udelta.T)
     history = model.fit(X,y, epochs= max_epochs, verbose=0)
 
@@ -50,7 +50,7 @@ def training(machVF,Udelta, k):
     y = np.array(Udelta)
     model.summary()
     history = fit_model(model, X, y)
-    eval = model.evaluate(X.T,y.T)
+    eval = model.evaluate(X,y.T)
     SaveModel(model, history)
     return history, eval
 
@@ -89,5 +89,8 @@ def LoadModel(path_to_model):
     return model, history
 
 
-def predict_U_star():
-    pass
+def predict_U_star(model, mach= None, vf=None):
+    input = [[mach, vf]]
+    u_star = model.predict(input)
+
+    return u_star

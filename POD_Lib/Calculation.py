@@ -53,7 +53,7 @@ def calc_U_hat(matrix, k):
 
 
 def calc_delta_hat(matrix, sol_mat= sol_matrix()):
-    return np.matmul(matrix.T, sol_mat) 
+    return np.matmul(matrix.T, sol_mat)
 
         
 
