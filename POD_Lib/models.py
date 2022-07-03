@@ -30,24 +30,24 @@ def loss_optim(model, optimizer='adam', loss='mse'):
 
     return model
 
-def fit_model(model,machVF, Udelta, max_epochs = 500):
+def fit_model(model,machVF, delta_hat, max_epochs = 500):
     X = np.array(machVF)
-    y = np.array(Udelta.T)
+    y = np.array(delta_hat.T)
     history = model.fit(X,y, epochs= max_epochs, verbose=0, shuffle= False)
 
     return history
 
-def eval_model(model, machvf, Udelta):
+def eval_model(model, machvf, delta_hat):
     X = np.array(machvf.T)
-    y = np.array(Udelta.T)
+    y = np.array(delta_hat.T)
     eval = model.evaluate(model, X,y)
     return eval
 
-def training(machVF,Udelta, k):
+def training(machVF,delta_hat, k):
     model = layers(num_layer=0, num_neurons=200, step_neurons=100, num_features= k)
     model = loss_optim(model)
     X = np.array(machVF)
-    y = np.array(Udelta)
+    y = np.array(delta_hat)
     model.summary()
     history = fit_model(model, X, y)
     eval = model.evaluate(X,y.T)
