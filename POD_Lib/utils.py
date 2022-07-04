@@ -1,5 +1,6 @@
 from ast import List
 import re
+from statistics import mean
 import numpy as np
 import os
 
@@ -40,9 +41,37 @@ def denorm(data, min, max, mean, std, minmax= False):
         return (data * std) + mean
 
 
-def arr_norm(data, min, max, mean, std, minmax= False):
-    pass
+def arr_norm(data, minmax= False):
+    params={'min':[] , 'max': [], 'mean':[], 'std':[]}
+    for col in range(data.shape[1]):
+        params['min'].append(np.min(data[:,col]))
+        params['max'].append(np.max(data[:,col]))
+        params['mean'].append(np.mean(data[:,col]))
+        params['std'].append(np.std(data[:,col]))
+        if minmax==True:
+            data[:,col]= norm(data[:,col],min=params['min'][col],
+                max=params['max'][col], mean=params['mean'][col],
+                std=params['std'][col], minmax=True)
+        else:
+            data[:,col]= norm(data[:,col],min=params['min'][col],
+                max=params['max'][col], mean=params['mean'][col],
+                std=params['std'][col])
+    params['min']=np.mean(params['min'])
+    params['max']=np.mean(params['max'])
+    params['mean']=np.mean(params['mean'])
+    params['std']=np.mean(params['std'])
+    return data, params
 
 
-def arr_denorm(data, min, max, mean, std, minmax= False):
-    pass
+def arr_denorm(data,params, minmax= False):
+    for col in range(data.shape[1]):
+        if minmax==True:
+            data[:,col]= denorm(data[:,col], min=params['min'],
+                 max=params['max'], mean=params['mean'],
+                  std=params['std'], minmax=True)
+        else:
+            data[:,col]= denorm(data[:,col], min=params['min'],
+                 max=params['max'], mean=params['mean'],
+                  std=params['std'])
+
+    return data
