@@ -132,6 +132,7 @@ dmypy.json
 #Directory
 Raw_New/*
 Data_Source/*
+Notebook/*
 
 
 model_POD.ipynb
