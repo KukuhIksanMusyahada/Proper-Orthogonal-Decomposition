@@ -76,6 +76,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+.ipynb
 
 # IPython
 profile_default/
@@ -131,3 +132,5 @@ dmypy.json
 #Directory
 Raw_New/*
 Data_Source/*
+
+
