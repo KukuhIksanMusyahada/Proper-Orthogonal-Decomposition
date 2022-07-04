@@ -24,3 +24,25 @@ def get_mach_vf_array(path=ph.get_raw_data()):
                 vf.append(result[1])
     list = [mach, vf]
     return np.array(list).T
+
+
+
+def norm(data, min, max, mean, std, minmax= False):
+    if minmax == True:
+        return (data-min)/(max-min)
+    else:
+        return (data-mean)/std
+
+def denorm(data, min, max, mean, std, minmax= False):
+    if minmax == True:
+        return data*(max-min) + min
+    else:
+        return (data * std) + mean
+
+
+def arr_norm(data, min, max, mean, std, minmax= False):
+    pass
+
+
+def arr_denorm(data, min, max, mean, std, minmax= False):
+    pass
