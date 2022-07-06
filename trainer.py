@@ -5,12 +5,8 @@ from POD_Lib import Calculation as calc
 from POD_Lib import utils
 from POD_Lib import models
 
-
-
-
-
-if __name__=='__main__':
-    print('----------------------------------------------------------------------------')
+def trainer():
+    print('------------------------------------------------------------------------------------------------------------')
     now = datetime.datetime.now()
     time_now = now.strftime('%Y-%m-%d-%H:%M:%S')
     print(f'TRAINING START AT {time_now}')
@@ -34,3 +30,8 @@ if __name__=='__main__':
     delta_time = end-now
     print(f'TIME NEEDED TO TRAIN IS {delta_time}')
 
+
+
+
+if __name__=='__main__':
+    trainer()

@@ -63,6 +63,10 @@ def arr_norm(data, minmax= False, params= None):
 
 
 def arr_denorm(data,params, minmax= False):
+    params['min'].append(np.min(data[:,col]))
+    params['max'].append(np.max(data[:,col]))
+    params['mean'].append(np.mean(data[:,col]))
+    params['std'].append(np.std(data[:,col]))
     for col in range(data.shape[1]):
         if minmax==True:
             data[:,col]= denorm(data[:,col], min=params['min'][col],

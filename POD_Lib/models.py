@@ -8,19 +8,22 @@ import pickle
 from keras.models import Sequential
 from keras.layers import Dense
 
-from POD_Lib.utils import get_mach_vf_array
+from POD_Lib.utils import get_mach_vf_array, arr_norm
 from POD_Lib import path_handling as ph
 
 def layers(num_layer:int, num_neurons:int, min_neurons=0,  step_neurons=None, num_features=1):
     model= Sequential()
-    model.add(Dense(200, input_dim=2))
-    if step_neurons != None:
-        min_neurons = num_neurons-(step_neurons*num_layer)
-        if min_neurons<0:
-            min_neurons=0
-        num_neurons = range(num_neurons, min_neurons, -step_neurons)
-    for neurons in num_neurons:
-        model.add(Dense(neurons))
+    model.add(Dense(500,activation='relu', input_dim=2))
+    model.add(Dense(600,activation='relu'))
+    model.add(Dense(300,activation='relu'))
+    model.add(Dense(100,activation='relu'))
+    # if step_neurons != None:
+    #     min_neurons = num_neurons-(step_neurons*num_layer)
+    #     if min_neurons<0:
+    #         min_neurons=0
+    #     num_neurons = range(num_neurons, min_neurons, -step_neurons)
+    # for neurons in num_neurons:
+    #     model.add(Dense(neurons))
     model.add(Dense(num_features))
 
     return model
@@ -44,7 +47,7 @@ def eval_model(model, machvf, delta_hat):
     return eval
 
 def training(machVF,delta_hat, k):
-    model = layers(num_layer=0, num_neurons=200, step_neurons=100, num_features= k)
+    model = layers(num_layer=5, num_neurons=500, step_neurons=100, num_features= k)
     model = loss_optim(model)
     X = np.array(machVF)
     y = np.array(delta_hat)
@@ -89,8 +92,9 @@ def LoadModel(path_to_model):
     return model, history
 
 
-def predict_delta_star(model, mach= None, vf=None):
-    input = [[mach, vf]]
+def predict_delta_star(model,x_params_std, mach= None, vf=None):
+    input = np.array([[mach, vf]])
+    input,_ = arr_norm(input, params= x_params_std)
     u_star = model.predict(input)
 
     return u_star
